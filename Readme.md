@@ -20,3 +20,12 @@ CMake Playground Playground
       PRIVATE foo
     )
     ```
+
+
+# CI multi repo build
+https://stackoverflow.com/questions/32995578/how-to-access-multiple-repositories-in-ci-build
+- use ssh keys --> needs to be passed from runner to actual image
+
+
+- put the whole ssh key into the variable at ``prject > settings > CI > variables``
+- public deploy key has to be ``enabled`` for each project
