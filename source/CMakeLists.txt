@@ -1,1 +1,1 @@
-add_subdirectory(wrapper)
+add_subdirectory(awesome_tool_app)
