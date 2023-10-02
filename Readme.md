@@ -1,31 +1,32 @@
-CMake Playground Playground
-====
+This used to test that cmake_playground actually worked and we can include it from a different repository if we set the path correctly. 
+
+
 [TOC]
 
 # How-To use ``foo`` from ``CMakeTestBed``
-- Clone [cmake_playground](http://gitlab.vnet.kudlek.online/dkudlek/cmake_playground)
-- build it with ``mkdir build && cmake .. && cmake . && make``
-- create the standard CMake project setup
-- For the excutable which ueses ``foo`` add at the top:
+- First, we need to close and build cmake_playground
+- Build the target install via the instructaion 
+- Add the path to installed cmake folder to your PATH variable
+- Now we build this repository and this is the most important line: 
+  ```cmake
+  find_package(cmake_test_bed__state_machine)
+  ```
+- If we can find the package, we just need to do this step:
+  ```cmake
+  target_link_libraries(awesome_tool
+    PRIVATE cmake_test_bed::state_machine
+  )
+  ```
+- and then we can build:
+  ```bash
+  mkdir build          # Create a directory to hold the build output.
+  cd build
+  cmake .. -DCMAKE_INSTALL_PREFIX=../install # Set install folder to PROJECT_ROOT/install
+  cmake --build . --config Release --target install  # Build release and trigger install procedure
+  ```
 
-    ```cmake
-    find_package(CMakeTestBed)
-
-    include_directories(${CMAKETESTBED_INCLUDE_DIRS})
-    ```
-
-- And linke the library ``foo`` from ``CMakeTestBed``:
-    ```cmake
-    target_link_libraries(awesome_tool
-      PRIVATE foo
-    )
-    ```
-
-
-# CI multi repo build
-https://stackoverflow.com/questions/32995578/how-to-access-multiple-repositories-in-ci-build
-- use ssh keys --> needs to be passed from runner to actual image
-
-
-- put the whole ssh key into the variable at ``prject > settings > CI > variables``
-- public deploy key has to be ``enabled`` for each project
+# CI with Gitlab Runner
+- We need to cloe cmake_playground with the CI token like this: 
+  ```sh
+  git clone http://gitlab-ci-token:${CI_JOB_TOKEN}@<gitlab-host>/dkudlek/cmake_playground.git
+  ```
