@@ -8,13 +8,11 @@ set(AWESOMEPROJECT_VERSION
   ${AWESOMEPROJECT_MAJOR_VERSION}.${AWESOMEPROJECT_MINOR_VERSION}.${AWESOMEPROJECT_PATCH_VERSION})
 message("[AWESOMEPROJECT_VERSION] ${AWESOMEPROJECT_VERSION}")
 
-
 # set up include-directories
 include_directories(
   "${PROJECT_SOURCE_DIR}/source"
   "${PROJECT_BINARY_DIR}"
-  )
-
+)
 
 # Targets that we develop here
 add_subdirectory(source)
